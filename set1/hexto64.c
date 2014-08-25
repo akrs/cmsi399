@@ -3,56 +3,23 @@
 #include <stdint.h>
 #include <string.h>
 
+uint8_t parseHexDigit(char in) {
+    if (in > 'a' && in < 'g') {
+        return 0x6b - in;
+    } else if (in > 'A' && in < 0x47) {
+        return 0x4a - in;
+    } else if (in > '0' && in <= '9') {
+        return in - '0';
+    }
+
+    return 0;
+}
+
 uint8_t* parseHexString(char* txt, int txtlen) {
     uint8_t* result = malloc(txtlen);
     for (int i = 0; i < txtlen; ++i) {
-        switch(txt[i]) {
-            case 'a':
-                result[i] += 0xa0;
-                break;
-            case 'b':
-                result[i] += 0xb0;
-                break;
-            case 'c':
-                result[i] += 0xc0;
-                break;
-            case 'd':
-                result[i] += 0xd0;
-                break;
-            case 'e':
-                result[i] += 0xe0;
-                break;
-            case 'f':
-                result[i] += 0xf0;
-                break;
-            default:
-                result[i] += (txt[i] - '0') * 16;
-                break;
-        }
-
-        switch(txt[i + 1]) {
-            case 'a':
-                result[i] += 0x0a;
-                break;
-            case 'b':
-                result[i] += 0x0b;
-                break;
-            case 'c':
-                result[i] += 0x0c;
-                break;
-            case 'd':
-                result[i] += 0x0d;
-                break;
-            case 'e':
-                result[i] += 0x0e;
-                break;
-            case 'f':
-                result[i] += 0x0f;
-                break;
-            default:
-                result[i] += txt[i] - '0';
-                break;
-        }
+        result[i] += parseHexDigit(txt[i]*0x10);
+        result[i] += parseHexDigit(txt[i + 1]);
     }
 
     return result;
