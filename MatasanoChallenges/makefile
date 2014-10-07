@@ -18,3 +18,4 @@ utils.o: utils.c
 
 clean:
 	rm -rf *.o
+	rm -rf *.dSYM
