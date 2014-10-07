@@ -16,7 +16,6 @@ int main(int argc, char const *argv[]) {
     for (uint8_t possibleKey = 0; possibleKey < 0xff; possibleKey++) {
         xorSingleValueInPlace(input, inputlen, possibleKey, possibleMessage);
         double possibleKeyScore = score((char*)possibleMessage, inputlen);
-        printf("Key: %d, Score: %f\n", possibleKey, possibleKeyScore);
         if (possibleKeyScore > bestKeyScore) {
             bestKey = possibleKey;
             bestKeyScore = possibleKeyScore;
