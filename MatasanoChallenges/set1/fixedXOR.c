@@ -1,10 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <smmintrin.h>
-
-uint8_t* parseHexString(char* txt, int txtlen);
-char* hextoString(uint8_t* input, int input_length);
+#include "utils.h"
 
 uint8_t* xorHex(uint8_t* input, uint8_t* key, int len) {
     uint8_t *result = malloc((size_t)len);
