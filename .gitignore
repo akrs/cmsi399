@@ -4,6 +4,9 @@
 *.obj
 *.elf
 
+# Debugging files
+*.dSYM
+
 # Libraries
 *.lib
 *.a
