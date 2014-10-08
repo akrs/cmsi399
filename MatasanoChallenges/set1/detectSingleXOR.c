@@ -17,6 +17,7 @@ int main(int argc, char const *argv[]) {
         scanf("%s", string);
         possibleMessages[i] = parseHexString(string, MESSAGE_LENGTH);
         double score = scoreSingleXOR(possibleMessages[i], MESSAGE_LENGTH / 2);
+        printf("Score at point %d is %f for string: %s\n", i, score, breakSingleXOR(possibleMessages[i], MESSAGE_LENGTH / 2));
         if (score > bestScore) {
             bestScore = score;
             bestMessage = i;
