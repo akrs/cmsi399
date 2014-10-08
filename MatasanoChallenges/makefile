@@ -1,8 +1,11 @@
-CFLAGS=-Wall -march=corei7 -std=c99 -g
-CC=gcc
+CFLAGS=-Wall -march=corei7 -std=c99 -O3
+CC=clang
 VPATH = set1
 
-all: breakSingleXOR.o fixedXOR.o hexto64.o utils.o
+all: detectSingleXOR.o breakSingleXOR.o fixedXOR.o hexto64.o utils.o
+
+detectSingleXOR.o: detectSingleXOR.c utils.o
+	$(CC) $(CFLAGS) $^ -o $@
 
 breakSingleXOR.o: breakSingleXOR.c utils.o
 	$(CC) $(CFLAGS) $^ -o $@

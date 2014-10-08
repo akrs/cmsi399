@@ -14,3 +14,10 @@ void xorSingleValueInPlace(uint8_t* input, int inputlen, uint8_t key, uint8_t* r
 
 /* Higher is better, 1 is perfect. */
 double score(char* input, int inputlen);
+
+/* Breaks a single char XOR, based on english letter frequency */
+char* breakSingleXOR(uint8_t* input, int inputlen);
+
+/* Scores a single XORed string based on letter frequency after best guess of key */
+double scoreSingleXOR(uint8_t* input, int inputlen);
+

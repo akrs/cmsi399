@@ -60,7 +60,7 @@ void xorSingleValueInPlace(uint8_t* input, int inputlen, uint8_t key, uint8_t* r
 
 double score(char* input, int inputlen) {
     double idealFrequencies[] = {0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228, 0.02015, 0.06094, 0.06966, 0.00153, 0.00772, 0.04025, 0.02406, 0.06749, 0.07507, 0.01929, 0.00095, 0.05987, 0.06327, 0.09056, 0.02758, 0.00978, 0.02360, 0.00150, 0.01974, 0.00074};
-    double counts[24] = { 0 };
+    double *counts = calloc(24, sizeof(double));
     for (int i = 0; i < inputlen; ++i) {
         char c = input[i];
         if (!ISALPHA(c)) continue;
@@ -73,4 +73,36 @@ double score(char* input, int inputlen) {
     }
 
     return score;
+}
+
+char* breakSingleXOR(uint8_t* input, int inputlen) {
+    uint8_t bestKey = 0;
+    double bestKeyScore = 0;
+    uint8_t* possibleMessage = malloc(inputlen);
+    for (uint8_t possibleKey = 0; possibleKey < 0xff; possibleKey++) {
+        xorSingleValueInPlace(input, inputlen, possibleKey, possibleMessage);
+        double possibleKeyScore = score((char*)possibleMessage, inputlen);
+        if (possibleKeyScore > bestKeyScore) {
+            bestKey = possibleKey;
+            bestKeyScore = possibleKeyScore;
+        }
+    }
+
+    xorSingleValueInPlace(input, inputlen, bestKey, possibleMessage);
+
+    return (char*)possibleMessage;
+}
+
+double scoreSingleXOR(uint8_t* input, int inputlen) {
+    double bestKeyScore = 0;
+    uint8_t* possibleMessage = malloc(inputlen);
+    for (uint8_t possibleKey = 0; possibleKey < 0xff; possibleKey++) {
+        xorSingleValueInPlace(input, inputlen, possibleKey, possibleMessage);
+        double possibleKeyScore = score((char*)possibleMessage, inputlen);
+        if (possibleKeyScore > bestKeyScore) {
+            bestKeyScore = possibleKeyScore;
+        }
+    }
+
+    return bestKeyScore;
 }
