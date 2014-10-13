@@ -1,4 +1,4 @@
-CFLAGS=-Wall -march=corei7 -std=c99 -O3
+CFLAGS=-Wall -march=corei7 -std=c99
 CC=clang
 VPATH = set1
 
